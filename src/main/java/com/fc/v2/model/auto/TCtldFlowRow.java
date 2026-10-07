@@ -57,6 +57,41 @@ public class TCtldFlowRow implements Serializable {
     @ApiModelProperty(value = "本行配对达标数")
     private BigDecimal chkNum;
 
+    /** 土壤镉实测数（报文带入，与当地那条告警线比对） */
+    @TableField("cd_value")
+    @ApiModelProperty(value = "土壤镉实测数（报文带入，与当地那条告警线比对）")
+    private BigDecimal cdValue;
+
+    /** 地块题名（一律以底册带出的那一份作准） */
+    @TableField("plot_title")
+    @ApiModelProperty(value = "地块题名（一律以底册带出的那一份作准）")
+    private String plotTitle;
+
+    /** 分区代号（一律以底册带出的那一份作准） */
+    @TableField("zone_no")
+    @ApiModelProperty(value = "分区代号（一律以底册带出的那一份作准）")
+    private String zoneNo;
+
+    /** 待核标注 PARSE报文切不开/ENCODING编码混杂/INCOMPLETE两数未同到/NO_PLOT底册查无此码 */
+    @TableField("flag_kind")
+    @ApiModelProperty(value = "待核标注 PARSE报文切不开/ENCODING编码混杂/INCOMPLETE两数未同到/NO_PLOT底册查无此码")
+    private String flagKind;
+
+    /** 退回理由（为哪一条退，逐行追溯） */
+    @TableField("reject_reason")
+    @ApiModelProperty(value = "退回理由（为哪一条退，逐行追溯）")
+    private String rejectReason;
+
+    /** 原始报文行（回核对照用，只用来比对不作行面） */
+    @TableField("msg_raw")
+    @ApiModelProperty(value = "原始报文行（回核对照用，只用来比对不作行面）")
+    private String msgRaw;
+
+    /** 题名或分区与底册比对不合 0合 1不合（不合的行回执单列一份） */
+    @TableField("mismatch")
+    @ApiModelProperty(value = "题名或分区与底册比对不合 0合 1不合（不合的行回执单列一份）")
+    private Integer mismatch;
+
     /** 来路（县农技中心直报／镇级补报两条来路） */
     @TableField("put_kind")
     @ApiModelProperty(value = "来路（县农技中心直报／镇级补报两条来路）")
@@ -145,6 +180,62 @@ public class TCtldFlowRow implements Serializable {
 
     public void setChkNum(BigDecimal chkNum) {
         this.chkNum = chkNum;
+    }
+
+    public BigDecimal getCdValue() {
+        return cdValue;
+    }
+
+    public void setCdValue(BigDecimal cdValue) {
+        this.cdValue = cdValue;
+    }
+
+    public String getPlotTitle() {
+        return plotTitle;
+    }
+
+    public void setPlotTitle(String plotTitle) {
+        this.plotTitle = plotTitle;
+    }
+
+    public String getZoneNo() {
+        return zoneNo;
+    }
+
+    public void setZoneNo(String zoneNo) {
+        this.zoneNo = zoneNo;
+    }
+
+    public String getFlagKind() {
+        return flagKind;
+    }
+
+    public void setFlagKind(String flagKind) {
+        this.flagKind = flagKind;
+    }
+
+    public String getRejectReason() {
+        return rejectReason;
+    }
+
+    public void setRejectReason(String rejectReason) {
+        this.rejectReason = rejectReason;
+    }
+
+    public String getMsgRaw() {
+        return msgRaw;
+    }
+
+    public void setMsgRaw(String msgRaw) {
+        this.msgRaw = msgRaw;
+    }
+
+    public Integer getMismatch() {
+        return mismatch;
+    }
+
+    public void setMismatch(Integer mismatch) {
+        this.mismatch = mismatch;
     }
 
     public String getPutKind() {
