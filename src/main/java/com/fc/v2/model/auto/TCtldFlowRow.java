@@ -37,10 +37,25 @@ public class TCtldFlowRow implements Serializable {
     @ApiModelProperty(value = "协同检测流水批次码")
     private String batchNo;
 
+    /** 期数 1镇级上报 2县局复核 */
+    @TableField("period_no")
+    @ApiModelProperty(value = "期数 1镇级上报 2县局复核")
+    private Integer periodNo;
+
+    /** 本行进的是这一次递交里的第几拨（行不许漂拨） */
+    @TableField("recv_seq")
+    @ApiModelProperty(value = "本行进的是这一次递交里的第几拨")
+    private Integer recvSeq;
+
     /** 原报行次 */
     @TableField("row_no")
     @ApiModelProperty(value = "原报行次")
     private Integer rowNo;
+
+    /** 退回重报行当初那一个行次（重报不重新排队，无则同行次） */
+    @TableField("orig_row_no")
+    @ApiModelProperty(value = "退回重报行当初那一个行次")
+    private Integer origRowNo;
 
     /** 被对上的地块码 */
     @TableField("item_code")
@@ -57,6 +72,21 @@ public class TCtldFlowRow implements Serializable {
     @ApiModelProperty(value = "本行配对达标数")
     private BigDecimal chkNum;
 
+    /** 本行土壤镉实测数（高过当地告警线退回） */
+    @TableField("cd_value")
+    @ApiModelProperty(value = "本行土壤镉实测数")
+    private BigDecimal cdValue;
+
+    /** 样别 SOIL土壤样 PRODUCT农产品样 */
+    @TableField("sample_kind")
+    @ApiModelProperty(value = "样别 SOIL土壤样 PRODUCT农产品样")
+    private String sampleKind;
+
+    /** 收获季（同一处地块两季各报一行，各定各的去向） */
+    @TableField("harvest_season")
+    @ApiModelProperty(value = "收获季")
+    private String harvestSeason;
+
     /** 来路（县农技中心直报／镇级补报两条来路） */
     @TableField("put_kind")
     @ApiModelProperty(value = "来路（县农技中心直报／镇级补报两条来路）")
@@ -66,6 +96,41 @@ public class TCtldFlowRow implements Serializable {
     @TableField("status")
     @ApiModelProperty(value = "行落地情形 0未勾 1已收下 2已退回")
     private Integer status;
+
+    /** 退回条款码（收下/未勾为空） */
+    @TableField("reject_code")
+    @ApiModelProperty(value = "退回条款码")
+    private String rejectCode;
+
+    /** 退回条款原话（写明为哪一条退，逐行追溯） */
+    @TableField("reject_msg")
+    @ApiModelProperty(value = "退回条款原话")
+    private String rejectMsg;
+
+    /** 报文里的地块题名（只用来比对，不作准） */
+    @TableField("msg_title")
+    @ApiModelProperty(value = "报文里的地块题名")
+    private String msgTitle;
+
+    /** 报文里的分区代号（只用来比对，不作准） */
+    @TableField("msg_zone_no")
+    @ApiModelProperty(value = "报文里的分区代号")
+    private String msgZoneNo;
+
+    /** 底册带出的地块题名（行面一律以这一份作准） */
+    @TableField("book_title")
+    @ApiModelProperty(value = "底册带出的地块题名")
+    private String bookTitle;
+
+    /** 底册带出的分区代号（行面一律以这一份作准） */
+    @TableField("book_zone_no")
+    @ApiModelProperty(value = "底册带出的分区代号")
+    private String bookZoneNo;
+
+    /** 是否回核人事后定夺 0当场落定 1事后从待核定夺（不计入当场三栏） */
+    @TableField("manual_settle")
+    @ApiModelProperty(value = "是否回核人事后定夺")
+    private Integer manualSettle;
 
     /** 删除标记 0正常 1删除 */
     @TableField("del_flag")
@@ -145,6 +210,110 @@ public class TCtldFlowRow implements Serializable {
 
     public void setChkNum(BigDecimal chkNum) {
         this.chkNum = chkNum;
+    }
+
+    public BigDecimal getCdValue() {
+        return cdValue;
+    }
+
+    public void setCdValue(BigDecimal cdValue) {
+        this.cdValue = cdValue;
+    }
+
+    public String getSampleKind() {
+        return sampleKind;
+    }
+
+    public void setSampleKind(String sampleKind) {
+        this.sampleKind = sampleKind;
+    }
+
+    public String getHarvestSeason() {
+        return harvestSeason;
+    }
+
+    public void setHarvestSeason(String harvestSeason) {
+        this.harvestSeason = harvestSeason;
+    }
+
+    public Integer getPeriodNo() {
+        return periodNo;
+    }
+
+    public void setPeriodNo(Integer periodNo) {
+        this.periodNo = periodNo;
+    }
+
+    public Integer getRecvSeq() {
+        return recvSeq;
+    }
+
+    public void setRecvSeq(Integer recvSeq) {
+        this.recvSeq = recvSeq;
+    }
+
+    public Integer getOrigRowNo() {
+        return origRowNo;
+    }
+
+    public void setOrigRowNo(Integer origRowNo) {
+        this.origRowNo = origRowNo;
+    }
+
+    public String getRejectCode() {
+        return rejectCode;
+    }
+
+    public void setRejectCode(String rejectCode) {
+        this.rejectCode = rejectCode;
+    }
+
+    public String getRejectMsg() {
+        return rejectMsg;
+    }
+
+    public void setRejectMsg(String rejectMsg) {
+        this.rejectMsg = rejectMsg;
+    }
+
+    public String getMsgTitle() {
+        return msgTitle;
+    }
+
+    public void setMsgTitle(String msgTitle) {
+        this.msgTitle = msgTitle;
+    }
+
+    public String getMsgZoneNo() {
+        return msgZoneNo;
+    }
+
+    public void setMsgZoneNo(String msgZoneNo) {
+        this.msgZoneNo = msgZoneNo;
+    }
+
+    public String getBookTitle() {
+        return bookTitle;
+    }
+
+    public void setBookTitle(String bookTitle) {
+        this.bookTitle = bookTitle;
+    }
+
+    public String getBookZoneNo() {
+        return bookZoneNo;
+    }
+
+    public void setBookZoneNo(String bookZoneNo) {
+        this.bookZoneNo = bookZoneNo;
+    }
+
+    public Integer getManualSettle() {
+        return manualSettle;
+    }
+
+    public void setManualSettle(Integer manualSettle) {
+        this.manualSettle = manualSettle;
     }
 
     public String getPutKind() {
